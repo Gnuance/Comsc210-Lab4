@@ -2,12 +2,13 @@
 Lab4 (Color) - Create a vector of structs to hold a random number of colors with various RGB values, then output to console in formatted list.
 */
 
+#include <iostream>
 #include <iomanip>
 #include <string>
 #include <vector>
 #include <random>
 
-using namespace std; // Cause I definitely ain't gonna std:: each statement
+using namespace std;
 
 // Spacing for output
 const int SPACING_EXTRA_LARGE = 40;
@@ -23,8 +24,8 @@ struct Color
     int blue;
 };
 
-void OutputColorHeader(); // Outputs header for color data
-void OutputColorInfo(const Color &); // Outputs individual color data
+void OutputColorHeader();                    // Outputs header for color data
+void OutputColorList(const vector<Color> &); // Outputs individual color data
 
 int main()
 {
@@ -50,12 +51,6 @@ int main()
     // Output header info to console
     OutputColorHeader();
 
-    // Output color info to console
-    for (Color col : Colors)
-    {
-        OutputColorInfo(col);
-    }
-
     return 0;
 }
 
@@ -63,18 +58,21 @@ int main()
 void OutputColorHeader()
 {
     cout << endl
+         << string((4 * SPACING_EXTRA_SMALL), '=')
+         << endl
          << left << setw(SPACING_EXTRA_SMALL) << "Color #" << setw(SPACING_EXTRA_SMALL) << "R value" << setw(SPACING_EXTRA_SMALL) << "G value" << setw(SPACING_SMALL) << "B value"
          << endl
-         << string((4*SPACING_EXTRA_SMALL), '-')
+         << string((4 * SPACING_EXTRA_SMALL), '=')
          << endl;
 };
 
 // Output function to cout restaurant info in formatted form
-void OutputColorInfo(const Color &c)
+void OutputColorList(const vector<Color> &Colors)
 {
-    string acceptingReservations = "";
-
-    cout << left << setw(SPACING_EXTRA_SMALL) << r.name << setw(SPACING_EXTRA_SMALL) << r.address << setw(SPACING_EXTRA_SMALL) << r.yearEstablished << setw(SPACING_SMALL) << r.seatingCapacity;
-    acceptingReservations = (r.acceptsReservations == 1) ? "Yes" : "No";
-    cout << setw(SPACING_EXTRA_SMALL) << acceptingReservations << endl;
+    // Output color info to console
+    for (size_t i = 0; i < Colors.size(); i++)
+    {
+        cout << left << setw(SPACING_EXTRA_SMALL) << (i + 1) << setw(SPACING_EXTRA_SMALL) << Colors.at(i).red << setw(SPACING_EXTRA_SMALL) << Colors.at(i).green << setw(SPACING_SMALL) << Colors.at(i).blue
+             << endl;
+    }
 };
