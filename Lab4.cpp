@@ -10,7 +10,7 @@ Lab4 (Color) - Create a vector of structs to hold a random number of colors with
 
 using namespace std;
 
-// Spacing for output
+// Spacing for output, only using extra small for this project
 const int SPACING_EXTRA_LARGE = 40;
 const int SPACING_LARGE = 25;
 const int SPACING_SMALL = 15;
@@ -32,14 +32,15 @@ int main()
     // Random number generators for creating data to populate vector of restaurants for testing
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<> dist(0, 255);
-
+    uniform_int_distribution<> dist(0, 255);  // For creating colors
+    uniform_int_distribution<> dist1(25, 50); // # of colors to be created
     // Temp color object
     Color c;
     vector<Color> Colors = {};
+    int n = dist1(gen);
 
     // Loop to populate color data and vector
-    for (size_t i = 0; i < 5; i++)
+    for (size_t i = 0; i < n; i++)
     {
         c.red = dist(gen);
         c.green = dist(gen);
@@ -48,8 +49,9 @@ int main()
         Colors.push_back(c); // Add restaurant to vector
     }
 
-    // Output header info to console
+    // Output header and color info to console
     OutputColorHeader();
+    OutputColorList(Colors);
 
     return 0;
 }
