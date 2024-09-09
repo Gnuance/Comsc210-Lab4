@@ -23,7 +23,7 @@ struct Color
     int blue;
 };
 
-void OutputRestaurantHeader(); // Outputs header for color data
+void OutputColorHeader(); // Outputs header for color data
 void OutputColorInfo(const Color &); // Outputs individual color data
 
 int main()
@@ -31,40 +31,29 @@ int main()
     // Random number generators for creating data to populate vector of restaurants for testing
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<> dist(0, 9);
-    uniform_int_distribution<> dist1(1900, 2024);
-    uniform_int_distribution<> dist2(15, 100);
-    uniform_int_distribution<> dist3(0, 1);
-    // Temp restaurant object
+    uniform_int_distribution<> dist(0, 255);
+
+    // Temp color object
     Color c;
     vector<Color> Colors = {};
 
     // Loop to populate color data and vector
     for (size_t i = 0; i < 5; i++)
     {
-        r.name = NAME[dist(gen)];
-        r.address = ADDRESS[dist(gen)];
-        r.yearEstablished = dist1(gen);
-        r.seatingCapacity = dist2(gen);
-        if (dist3(gen) == 0)
-        {
-            r.acceptsReservations = false;
-        }
-        else
-        {
-            r.acceptsReservations = true;
-        }
+        c.red = dist(gen);
+        c.green = dist(gen);
+        c.blue = dist(gen);
 
-        Restaurants.push_back(r); // Add restaurant to vector
+        Colors.push_back(c); // Add restaurant to vector
     }
 
     // Output header info to console
     OutputColorHeader();
 
-    // Output restaurant info to console
-    for (Restaurant r : Restaurants)
+    // Output color info to console
+    for (Color col : Colors)
     {
-        OutputRestaurantInfo(r);
+        OutputColorInfo(col);
     }
 
     return 0;
@@ -74,9 +63,9 @@ int main()
 void OutputColorHeader()
 {
     cout << endl
-         << left << setw(SPACING_LARGE) << "NAME" << setw(SPACING_EXTRA_LARGE) << "ADDRESS" << setw(SPACING_LARGE) << "YEAR ESTABLISHED" << setw(SPACING_SMALL) << "CAPACITY" << setw(SPACING_LARGE) << "ACCEPTS RESERVATIONS"
+         << left << setw(SPACING_EXTRA_SMALL) << "Color #" << setw(SPACING_EXTRA_SMALL) << "R value" << setw(SPACING_EXTRA_SMALL) << "G value" << setw(SPACING_SMALL) << "B value"
          << endl
-         << string(125, '-')
+         << string((4*SPACING_EXTRA_SMALL), '-')
          << endl;
 };
 
@@ -85,7 +74,7 @@ void OutputColorInfo(const Color &c)
 {
     string acceptingReservations = "";
 
-    cout << left << setw(SPACING_LARGE) << r.name << setw(SPACING_EXTRA_LARGE) << r.address << setw(SPACING_LARGE) << r.yearEstablished << setw(SPACING_SMALL) << r.seatingCapacity;
+    cout << left << setw(SPACING_EXTRA_SMALL) << r.name << setw(SPACING_EXTRA_SMALL) << r.address << setw(SPACING_EXTRA_SMALL) << r.yearEstablished << setw(SPACING_SMALL) << r.seatingCapacity;
     acceptingReservations = (r.acceptsReservations == 1) ? "Yes" : "No";
-    cout << setw(SPACING_LARGE) << acceptingReservations << endl;
+    cout << setw(SPACING_EXTRA_SMALL) << acceptingReservations << endl;
 };
